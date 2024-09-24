@@ -1,5 +1,5 @@
 {
-  "name": "@matthewherod/robotjs",
+  "name": "@mherod/robotjs",
   "version": "0.7.0",
   "description": "Node.js Desktop Automation with Rust bindings.",
   "main": "index.js",
@@ -42,9 +42,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/matthewherod/robotjs/issues"
+    "url": "https://github.com/mherod/robotjs/issues"
   },
-  "homepage": "https://github.com/matthewherod/robotjs",
+  "homepage": "https://github.com/mherod/robotjs",
   "dependencies": {
     "@napi-rs/cli": "^2.16.3"
   },
