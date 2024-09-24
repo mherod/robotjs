@@ -17,4 +17,6 @@ image = "0.24.0"
 napi-build = "2.0.1"
 
 [profile.release]
-lto = true
+lto = true-e 
+[dev-dependencies]
+napi = { version = "2.12.0", features = ["async"] }
