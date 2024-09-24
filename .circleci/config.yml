@@ -1,0 +1,33 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+  rust: circleci/rust@1.6.0
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/rust:1.68-node
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - rust/install:
+          version: 1.68.0
+      - run:
+          name: Install system dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y libx11-dev libxtst-dev libpng-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev
+      - run:
+          name: Build project
+          command: npm run build
+      - run:
+          name: Run tests
+          command: npm test
+
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - build-and-test
