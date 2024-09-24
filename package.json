@@ -11,11 +11,12 @@
     "test:win32": "jasmine test/**/*.js",
     "install": "npm run build",
     "build": "napi build --platform --release",
-    "build:debug": "napi build --platform"
+    "build:debug": "napi build --platform",
+    "test:rust": "cargo test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/matthewherod/robotjs.git"
+    "url": "https://github.com/mherod/robotjs.git"
   },
   "keywords": [
     "Automation",

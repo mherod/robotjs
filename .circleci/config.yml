@@ -14,6 +14,12 @@ jobs:
           pkg-manager: npm
       - rust/install:
           version: 1.68.0
+      - restore_cache:
+          keys:
+            - cargo-{{ checksum "Cargo.lock" }}
+      - restore_cache:
+          keys:
+            - npm-{{ checksum "package-lock.json" }}
       - run:
           name: Install system dependencies
           command: |
@@ -23,8 +29,19 @@ jobs:
           name: Build project
           command: npm run build
       - run:
-          name: Run tests
+          name: Run Rust tests
+          command: cargo test
+      - run:
+          name: Run Node.js tests
           command: npm test
+      - save_cache:
+          paths:
+            - ~/.cargo
+          key: cargo-{{ checksum "Cargo.lock" }}
+      - save_cache:
+          paths:
+            - ~/.npm
+          key: npm-{{ checksum "package-lock.json" }}
 
 workflows:
   version: 2
