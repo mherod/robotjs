@@ -1,7 +1,12 @@
 [package]
 name = "robotjs"
-version = "0.6.0"
+version = "0.7.0"
 edition = "2021"
+description = "Node.js Desktop Automation with Rust bindings."
+authors = ["Matthew Herod"]
+license = "MIT"
+repository = "https://github.com/mherod/robotjs.git"
+homepage = "https://github.com/mherod/robotjs"
 
 [lib]
 name = "robotjs"
@@ -22,3 +27,6 @@ lto = true
 
 [dev-dependencies]
 napi = { version = "2.12.2", features = ["async"] }
+
+[package.metadata.napi-rs]
+name = "@mherod/robotjs"

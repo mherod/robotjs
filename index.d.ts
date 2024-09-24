@@ -25,4 +25,6 @@ export declare class RobotJs {
   getScreenSize(): object
   captureScreen(x?: number | undefined | null, y?: number | undefined | null, width?: number | undefined | null, height?: number | undefined | null): object
   getColor(img: object, x: number, y: number): string
+  getXDisplayName(): string
+  setXDisplayName(name: string): number
 }

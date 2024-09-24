@@ -32,8 +32,11 @@ jobs:
           name: Run Rust tests
           command: cargo test
       - run:
-          name: Run Node.js tests
+          name: Run Node.js tests (Jasmine)
           command: npm test
+      - run:
+          name: Run Vitest tests
+          command: npm run test:vitest
       - save_cache:
           paths:
             - ~/.cargo

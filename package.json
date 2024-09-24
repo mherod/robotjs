@@ -12,7 +12,8 @@
     "install": "npm run build",
     "build": "napi build --platform --release",
     "build:debug": "napi build --platform",
-    "test:rust": "cargo test"
+    "test:rust": "cargo test",
+    "test:vitest": "vitest"
   },
   "repository": {
     "type": "git",
@@ -49,9 +50,10 @@
     "@napi-rs/cli": "^2.16.3"
   },
   "devDependencies": {
-    "tape": "^4.8.0",
     "jasmine": "^2.99.0",
-    "run-script-os": "^1.0.3"
+    "run-script-os": "^1.0.3",
+    "tape": "^4.8.0",
+    "vitest": "^2.1.1"
   },
   "engines": {
     "node": ">=14"

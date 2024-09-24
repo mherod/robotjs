@@ -3,6 +3,7 @@ use napi_derive::napi;
 use std::time::Duration;
 use enigo::{Enigo, MouseControllable, KeyboardControllable, MouseButton, Key};
 use screenshots::Screen;
+use napi::{Env, JsObject};
 
 #[napi]
 pub struct RobotJS {
@@ -68,9 +69,9 @@ impl RobotJS {
     }
 
     #[napi]
-    pub fn get_mouse_pos(&self, env: Env) -> Result<Object> {
+    pub fn get_mouse_pos(&self, ctx: Env) -> Result<JsObject> {
         let (x, y) = self.enigo.mouse_location();
-        let mut obj = env.create_object()?;
+        let mut obj = ctx.create_object()?;
         obj.set("x", x)?;
         obj.set("y", y)?;
         Ok(obj)
@@ -217,16 +218,16 @@ impl RobotJS {
     }
 
     #[napi]
-    pub fn get_screen_size(&self, env: Env) -> Result<Object> {
+    pub fn get_screen_size(&self, ctx: Env) -> Result<JsObject> {
         let screen = Screen::all().unwrap()[0];
-        let mut obj = env.create_object()?;
+        let mut obj = ctx.create_object()?;
         obj.set("width", screen.display_info.width)?;
         obj.set("height", screen.display_info.height)?;
         Ok(obj)
     }
 
     #[napi]
-    pub fn capture_screen(&self, env: Env, x: Option<i32>, y: Option<i32>, width: Option<i32>, height: Option<i32>) -> Result<Object> {
+    pub fn capture_screen(&self, ctx: Env, x: Option<i32>, y: Option<i32>, width: Option<i32>, height: Option<i32>) -> Result<JsObject> {
         let screen = Screen::all().unwrap()[0];
         let x = x.unwrap_or(0);
         let y = y.unwrap_or(0);
@@ -235,13 +236,13 @@ impl RobotJS {
 
         let image = screen.capture_area(x, y, width as u32, height as u32).unwrap();
 
-        let mut obj = env.create_object()?;
+        let mut obj = ctx.create_object()?;
         obj.set("width", width)?;
         obj.set("height", height)?;
         obj.set("byteWidth", width * 4)?;
         obj.set("bitsPerPixel", 32)?;
         obj.set("bytesPerPixel", 4)?;
-        obj.set("image", image.buffer().to_vec())?;
+        obj.set("image", ctx.create_buffer_with_data(image.buffer().to_vec())?.into_raw())?;
         Ok(obj)
     }
 
@@ -261,5 +262,17 @@ impl RobotJS {
         let b = image_data[index + 2];
 
         Ok(format!("#{:02x}{:02x}{:02x}", r, g, b))
+    }
+
+    #[napi]
+    pub fn get_x_display_name(&self) -> Result<String> {
+        // This is a Linux-specific function, we'll return a placeholder for now
+        Ok(String::from(""))
+    }
+
+    #[napi]
+    pub fn set_x_display_name(&self, _name: String) -> Result<i32> {
+        // This is a Linux-specific function, we'll return a success code for now
+        Ok(1)
     }
 }
